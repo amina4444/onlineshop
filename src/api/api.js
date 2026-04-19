@@ -1,33 +1,17 @@
-// export const fetchProducts = async () => {
-//   const res = await fetch("https://fakestoreapi.com/products");
-
-//   if (!res.ok) throw new Error("Error fetching products");
-
-//   return res.json();
-// };
-
-// export const fetchProduct = async (id) => {
-//   const res = await fetch(`https://fakestoreapi.com/products/${id}`);
-
-//   if (!res.ok) throw new Error("Error fetching product");
-
-//   return res.json();
-// };
-
+const BASE_URL = "https://dummyjson.com/products";
 
 export const fetchProducts = async () => {
-  const res = await fetch("https://dummyjson.com/products");
-
-  if (!res.ok) throw new Error("Error fetching products");
-
+  const res = await fetch(`${BASE_URL}?limit=30`);
   const data = await res.json();
-  return data.products; // ⚠️ ВАЖНО
+  return data.products;
 };
 
 export const fetchProduct = async (id) => {
-  const res = await fetch(`https://dummyjson.com/products/${id}`);
+  const res = await fetch(`${BASE_URL}/${id}`);
+  return res.json();
+};
 
-  if (!res.ok) throw new Error("Error fetching product");
-
+export const fetchCategories = async () => {
+  const res = await fetch(`${BASE_URL}/categories`);
   return res.json();
 };
