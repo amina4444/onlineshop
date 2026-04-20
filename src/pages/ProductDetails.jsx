@@ -13,33 +13,69 @@ export default function ProductDetails({ getProduct, onDelete }) {
   const [loading, setLoading] = useState(true);
   const [activeImg, setActiveImg] = useState(0);
 
-  useEffect(() => {
-    setLoading(true);
-    const local = getProduct(id);
-    if (local) {
-      setProduct(local);
-      setLoading(false);
-      return;
-    }
+  // useEffect(() => {
+  //   setLoading(true);
+  //   const local = getProduct(id);
+  //   if (local) {
+  //     setProduct(local);
+  //     setLoading(false);
+  //     return;
+  //   }
     
-    import("../api/api").then(({ fetchProduct }) => {
-      fetchProduct(id)
-        .then((data) => { setProduct(data); setLoading(false); })
-        .catch(() => { setLoading(false); });
-    });
-  }, [id]);
+  //   import("../api/api").then(({ fetchProduct }) => {
+  //     fetchProduct(id)
+  //       .then((data) => { setProduct(data); setLoading(false); })
+  //       .catch(() => { setLoading(false); });
+  //   });
+  // }, [id]);
+    
+
+  useEffect(() => {
+  setLoading(true);
+  const local = getProduct(id);
+  if (local) {
+    setProduct(local);
+    setLoading(false);
+    return;
+  }
+  import("../api/api").then(({ fetchProduct }) => {
+    fetchProduct(id)
+      .then((data) => {
+        if (data.message === "Product not found" || !data.title) {
+          setProduct(null);
+        } else {
+          setProduct(data);
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        setProduct(null);
+        setLoading(false);
+      });
+  });
+}, [id]);
 
   if (loading) return (
     <div className="loading-screen"><div className="spinner-large"></div><p>Loading...</p></div>
   );
 
-  if (!product) return (
-    <div className="error-screen">
-      <span className="error-icon">😕</span>
-      <h2>Product not found</h2>
-      <Link to="/products" className="btn-primary">Back to Products</Link>
+  if (!loading && !product) return (
+  <div className="notfound-page">
+    <div className="notfound-content">
+      <div className="notfound-code">404</div>
+      <h1 className="notfound-title">Product Not Found</h1>
+      <p className="notfound-subtitle">
+        The product you're looking for doesn't exist or has been deleted.
+      </p>
+      <div className="notfound-actions">
+        <Link to="/products" className="btn-primary">Browse Products</Link>
+        <button className="btn-outline" onClick={() => navigate(-1)}>
+          Go Back
+        </button>
+      </div>
     </div>
-  );
+  </div>
+);
 
   const fav = isFavorite(product.id);
   const isOwner = product.owner === user?.email;
