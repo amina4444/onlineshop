@@ -46,7 +46,7 @@ export default function Profile({ allProducts }) {
         </div>
       </div>
 
-      {/* Stats */}
+   
       <div className="profile-stats">
         <div className="profile-stat">
           <strong>{myItems.length}</strong>
@@ -62,7 +62,7 @@ export default function Profile({ allProducts }) {
         </div>
       </div>
 
-      {/* Quick links */}
+  
       <div className="profile-section">
         <h3 className="section-label">Quick Links</h3>
         <div className="profile-links">
@@ -83,7 +83,7 @@ export default function Profile({ allProducts }) {
         </div>
       </div>
 
-      {/* Account details */}
+    
       <div className="profile-section">
         <h3 className="section-label">Account Details</h3>
         <div className="profile-detail-card">

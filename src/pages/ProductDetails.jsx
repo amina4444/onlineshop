@@ -13,22 +13,6 @@ export default function ProductDetails({ getProduct, onDelete }) {
   const [loading, setLoading] = useState(true);
   const [activeImg, setActiveImg] = useState(0);
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   const local = getProduct(id);
-  //   if (local) {
-  //     setProduct(local);
-  //     setLoading(false);
-  //     return;
-  //   }
-    
-  //   import("../api/api").then(({ fetchProduct }) => {
-  //     fetchProduct(id)
-  //       .then((data) => { setProduct(data); setLoading(false); })
-  //       .catch(() => { setLoading(false); });
-  //   });
-  // }, [id]);
-    
 
   useEffect(() => {
   setLoading(true);
